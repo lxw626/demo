@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mytest</title>
+</head>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#myForm").ajaxForm(function(data){
+            alert("返回的值是" + data);
+        });
+    });
+</script>
+<body>
+<form action="test1" method="post" id="myForm">
+    <textarea name="text" rows="30" cols="100"></textarea>
+    <input type="submit" value="submit"/>
+</form>
+</body>
+
+</html>

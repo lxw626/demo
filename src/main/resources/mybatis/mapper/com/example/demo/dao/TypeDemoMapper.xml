@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.TypeDemoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.TypeDemo">
+    <result column="CHAR_TYPE" jdbcType="CHAR" property="charType" />
+    <result column="VARCHAR2_TYPE" jdbcType="VARCHAR" property="varchar2Type" />
+    <result column="VARCHAR_TYPE" jdbcType="VARCHAR" property="varcharType" />
+    <result column="DATE_TYPE" jdbcType="TIMESTAMP" property="dateType" />
+    <result column="INTEGER_TYPE" jdbcType="DECIMAL" property="integerType" />
+    <result column="NUMBER_TYPE" jdbcType="DECIMAL" property="numberType" />
+    <result column="NUMERIC_TYPE" jdbcType="DECIMAL" property="numericType" />
+    <result column="DECIMAL_TYPE" jdbcType="DECIMAL" property="decimalType" />
+    <result column="TIMESTAMP_TYPE" jdbcType="TIMESTAMP" property="timestampType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.entity.TypeDemo">
+    <result column="LONG_TYPE" jdbcType="LONGVARCHAR" property="longType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CHAR_TYPE, VARCHAR2_TYPE, VARCHAR_TYPE, DATE_TYPE, INTEGER_TYPE, NUMBER_TYPE, NUMERIC_TYPE, 
+    DECIMAL_TYPE, TIMESTAMP_TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    LONG_TYPE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.entity.TypeDemoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.example.demo.entity.TypeDemoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.TypeDemoExample">
+    delete from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.TypeDemo">
+    insert into TYPE_DEMO (CHAR_TYPE, VARCHAR2_TYPE, VARCHAR_TYPE, 
+      DATE_TYPE, INTEGER_TYPE, NUMBER_TYPE, 
+      NUMERIC_TYPE, DECIMAL_TYPE, TIMESTAMP_TYPE, 
+      LONG_TYPE)
+    values (#{charType,jdbcType=CHAR}, #{varchar2Type,jdbcType=VARCHAR}, #{varcharType,jdbcType=VARCHAR}, 
+      #{dateType,jdbcType=TIMESTAMP}, #{integerType,jdbcType=DECIMAL}, #{numberType,jdbcType=DECIMAL}, 
+      #{numericType,jdbcType=DECIMAL}, #{decimalType,jdbcType=DECIMAL}, #{timestampType,jdbcType=TIMESTAMP}, 
+      #{longType,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.TypeDemo">
+    insert into TYPE_DEMO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="charType != null">
+        CHAR_TYPE,
+      </if>
+      <if test="varchar2Type != null">
+        VARCHAR2_TYPE,
+      </if>
+      <if test="varcharType != null">
+        VARCHAR_TYPE,
+      </if>
+      <if test="dateType != null">
+        DATE_TYPE,
+      </if>
+      <if test="integerType != null">
+        INTEGER_TYPE,
+      </if>
+      <if test="numberType != null">
+        NUMBER_TYPE,
+      </if>
+      <if test="numericType != null">
+        NUMERIC_TYPE,
+      </if>
+      <if test="decimalType != null">
+        DECIMAL_TYPE,
+      </if>
+      <if test="timestampType != null">
+        TIMESTAMP_TYPE,
+      </if>
+      <if test="longType != null">
+        LONG_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="charType != null">
+        #{charType,jdbcType=CHAR},
+      </if>
+      <if test="varchar2Type != null">
+        #{varchar2Type,jdbcType=VARCHAR},
+      </if>
+      <if test="varcharType != null">
+        #{varcharType,jdbcType=VARCHAR},
+      </if>
+      <if test="dateType != null">
+        #{dateType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integerType != null">
+        #{integerType,jdbcType=DECIMAL},
+      </if>
+      <if test="numberType != null">
+        #{numberType,jdbcType=DECIMAL},
+      </if>
+      <if test="numericType != null">
+        #{numericType,jdbcType=DECIMAL},
+      </if>
+      <if test="decimalType != null">
+        #{decimalType,jdbcType=DECIMAL},
+      </if>
+      <if test="timestampType != null">
+        #{timestampType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longType != null">
+        #{longType,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.TypeDemoExample" resultType="java.lang.Long">
+    select count(*) from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update TYPE_DEMO
+    <set>
+      <if test="record.charType != null">
+        CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      </if>
+      <if test="record.varchar2Type != null">
+        VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varcharType != null">
+        VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateType != null">
+        DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.integerType != null">
+        INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numberType != null">
+        NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numericType != null">
+        NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.decimalType != null">
+        DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timestampType != null">
+        TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.longType != null">
+        LONG_TYPE = #{record.longType,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update TYPE_DEMO
+    set CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP},
+      LONG_TYPE = #{record.longType,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update TYPE_DEMO
+    set CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.TypeDemo">
+    <result column="CHAR_TYPE" jdbcType="CHAR" property="charType" />
+    <result column="VARCHAR2_TYPE" jdbcType="VARCHAR" property="varchar2Type" />
+    <result column="VARCHAR_TYPE" jdbcType="VARCHAR" property="varcharType" />
+    <result column="DATE_TYPE" jdbcType="TIMESTAMP" property="dateType" />
+    <result column="INTEGER_TYPE" jdbcType="DECIMAL" property="integerType" />
+    <result column="NUMBER_TYPE" jdbcType="DECIMAL" property="numberType" />
+    <result column="NUMERIC_TYPE" jdbcType="DECIMAL" property="numericType" />
+    <result column="DECIMAL_TYPE" jdbcType="DECIMAL" property="decimalType" />
+    <result column="TIMESTAMP_TYPE" jdbcType="TIMESTAMP" property="timestampType" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.entity.TypeDemo">
+    <result column="LONG_TYPE" jdbcType="LONGVARCHAR" property="longType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CHAR_TYPE, VARCHAR2_TYPE, VARCHAR_TYPE, DATE_TYPE, INTEGER_TYPE, NUMBER_TYPE, NUMERIC_TYPE, 
+    DECIMAL_TYPE, TIMESTAMP_TYPE
+  </sql>
+  <sql id="Blob_Column_List">
+    LONG_TYPE
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.example.demo.entity.TypeDemoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.example.demo.entity.TypeDemoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.example.demo.entity.TypeDemoExample">
+    delete from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.TypeDemo">
+    insert into TYPE_DEMO (CHAR_TYPE, VARCHAR2_TYPE, VARCHAR_TYPE, 
+      DATE_TYPE, INTEGER_TYPE, NUMBER_TYPE, 
+      NUMERIC_TYPE, DECIMAL_TYPE, TIMESTAMP_TYPE, 
+      LONG_TYPE)
+    values (#{charType,jdbcType=CHAR}, #{varchar2Type,jdbcType=VARCHAR}, #{varcharType,jdbcType=VARCHAR}, 
+      #{dateType,jdbcType=TIMESTAMP}, #{integerType,jdbcType=DECIMAL}, #{numberType,jdbcType=DECIMAL}, 
+      #{numericType,jdbcType=DECIMAL}, #{decimalType,jdbcType=DECIMAL}, #{timestampType,jdbcType=TIMESTAMP}, 
+      #{longType,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.TypeDemo">
+    insert into TYPE_DEMO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="charType != null">
+        CHAR_TYPE,
+      </if>
+      <if test="varchar2Type != null">
+        VARCHAR2_TYPE,
+      </if>
+      <if test="varcharType != null">
+        VARCHAR_TYPE,
+      </if>
+      <if test="dateType != null">
+        DATE_TYPE,
+      </if>
+      <if test="integerType != null">
+        INTEGER_TYPE,
+      </if>
+      <if test="numberType != null">
+        NUMBER_TYPE,
+      </if>
+      <if test="numericType != null">
+        NUMERIC_TYPE,
+      </if>
+      <if test="decimalType != null">
+        DECIMAL_TYPE,
+      </if>
+      <if test="timestampType != null">
+        TIMESTAMP_TYPE,
+      </if>
+      <if test="longType != null">
+        LONG_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="charType != null">
+        #{charType,jdbcType=CHAR},
+      </if>
+      <if test="varchar2Type != null">
+        #{varchar2Type,jdbcType=VARCHAR},
+      </if>
+      <if test="varcharType != null">
+        #{varcharType,jdbcType=VARCHAR},
+      </if>
+      <if test="dateType != null">
+        #{dateType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integerType != null">
+        #{integerType,jdbcType=DECIMAL},
+      </if>
+      <if test="numberType != null">
+        #{numberType,jdbcType=DECIMAL},
+      </if>
+      <if test="numericType != null">
+        #{numericType,jdbcType=DECIMAL},
+      </if>
+      <if test="decimalType != null">
+        #{decimalType,jdbcType=DECIMAL},
+      </if>
+      <if test="timestampType != null">
+        #{timestampType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longType != null">
+        #{longType,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.demo.entity.TypeDemoExample" resultType="java.lang.Long">
+    select count(*) from TYPE_DEMO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update TYPE_DEMO
+    <set>
+      <if test="record.charType != null">
+        CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      </if>
+      <if test="record.varchar2Type != null">
+        VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.varcharType != null">
+        VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateType != null">
+        DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.integerType != null">
+        INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numberType != null">
+        NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.numericType != null">
+        NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.decimalType != null">
+        DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.timestampType != null">
+        TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.longType != null">
+        LONG_TYPE = #{record.longType,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update TYPE_DEMO
+    set CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP},
+      LONG_TYPE = #{record.longType,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update TYPE_DEMO
+    set CHAR_TYPE = #{record.charType,jdbcType=CHAR},
+      VARCHAR2_TYPE = #{record.varchar2Type,jdbcType=VARCHAR},
+      VARCHAR_TYPE = #{record.varcharType,jdbcType=VARCHAR},
+      DATE_TYPE = #{record.dateType,jdbcType=TIMESTAMP},
+      INTEGER_TYPE = #{record.integerType,jdbcType=DECIMAL},
+      NUMBER_TYPE = #{record.numberType,jdbcType=DECIMAL},
+      NUMERIC_TYPE = #{record.numericType,jdbcType=DECIMAL},
+      DECIMAL_TYPE = #{record.decimalType,jdbcType=DECIMAL},
+      TIMESTAMP_TYPE = #{record.timestampType,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
