@@ -1,4 +1,4 @@
-package com.example.demo.junit;
+package junitdemo;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
