@@ -1,0 +1,6 @@
+mybatis:
+    crud+pagehelper
+    mbg
+dom4j
+参数化测试
+代码模板
