@@ -36,4 +36,9 @@ public class EmpController {
         List<Emp> result = empService.select(emp);
         return new Response().success(result);
     }
+    @GetMapping("/getEmpAll")
+    public Response getEmpAll() {
+        List<Emp> result = empService.selectEmpAll();
+        return new Response().success(result);
+    }
 }

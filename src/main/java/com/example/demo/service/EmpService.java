@@ -29,6 +29,10 @@ public class EmpService {
     }
 
     public List<Emp> select(Emp emp) {
-        return empMapper.select(emp);
+        return empMapper.selectEmp(emp);
+    }
+
+    public List<Emp> selectEmpAll() {
+        return empMapper.selectEmpAll();
     }
 }

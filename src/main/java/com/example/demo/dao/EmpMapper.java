@@ -1,11 +1,12 @@
 package com.example.demo.dao;
 
+import com.example.demo.dao.adapter.EmpMapperEx;
 import com.example.demo.entity.Emp;
 import com.example.demo.entity.EmpExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface EmpMapper {
+public interface EmpMapper extends EmpMapperEx {
     long countByExample(EmpExample example);
 
     int deleteByExample(EmpExample example);

@@ -2,42 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.mapper.EmpMapper">
     <resultMap id="BaseResultMap" type="com.example.demo.entity.Emp">
-        <id column="empno" property="empno" jdbcType="INTEGER"/>
-        <result column="ename" property="ename" jdbcType="VARCHAR"/>
-        <result column="deptno" property="deptno" jdbcType="INTEGER"/>
+        <id column="empno" jdbcType="INTEGER" property="empno" />
+        <result column="ename" jdbcType="VARCHAR" property="ename" />
+        <result column="job" jdbcType="VARCHAR" property="job" />
+        <result column="mgr" jdbcType="INTEGER" property="mgr" />
+        <result column="hiredate" jdbcType="TIMESTAMP" property="hiredate" />
+        <result column="sal" jdbcType="DECIMAL" property="sal" />
+        <result column="comm" jdbcType="DECIMAL" property="comm" />
+        <result column="deptno" jdbcType="INTEGER" property="deptno" />
     </resultMap>
-
-    <sql id="Base_Column_List">empno, ename,deptno</sql>
-
-    <insert id="insert">
-        INSERT INTO emp(ename,deptno) VALUES (#{ename},#{deptno})
-    </insert>
-
-    <delete id="delete">
-        delete from emp
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.example.demo.entity.Emp">
+    insert into emp (empno, ename, job,
+      mgr, hiredate, sal,
+      comm, deptno)
+    values (#{empno,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR},
+      #{mgr,jdbcType=INTEGER}, #{hiredate,jdbcType=TIMESTAMP}, #{sal,jdbcType=DECIMAL},
+      #{comm,jdbcType=DECIMAL}, #{deptno,jdbcType=INTEGER})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.Emp">
+    update emp
+    set ename = #{ename,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      mgr = #{mgr,jdbcType=INTEGER},
+      hiredate = #{hiredate,jdbcType=TIMESTAMP},
+      sal = #{sal,jdbcType=DECIMAL},
+      comm = #{comm,jdbcType=DECIMAL},
+      deptno = #{deptno,jdbcType=INTEGER}
+    where empno = #{empno,jdbcType=INTEGER}
+  </update>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select empno, ename, job, mgr, hiredate, sal, comm, deptno
+    from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </select>
+    <select id="select" resultMap="BaseResultMap" parameterType="com.example.demo.entity.Emp">
+        select empno, ename, job, mgr, hiredate, sal, comm, deptno
+        from emp
         <where>
-            <if test="empno != null"> and empno = #{empno}</if>
-            <if test="ename != null"> and ename = #{ename}</if>
-            <if test="deptno != null"> and deptno = #{deptno}</if>
+            <if test = "empno != null">
+                and empno =  #{empno,jdbcType=INTEGER}
+            </if>
+            <if test = "ename != null and ename!=''">
+                and ename = #{ename,jdbcType=VARCHAR}
+            </if>
+            <if test = "job != null and job!=''">
+                and job = #{job,jdbcType=VARCHAR}
+            </if>
+            <if test = "mgr != null">
+                and mgr = #{mgr,jdbcType=DECIMAL}
+            </if>
+            <if test = "hiredate != null">
+                and hiredate = #{hiredate,jdbcType=DATE}
+            </if>
+            <if test = "sal != null">
+                and sal = #{sal,jdbcType=DECIMAL}
+            </if>
+            <if test = "comm != null">
+                and comm = #{comm,jdbcType=INTEGER}
+            </if>
+            <if test = "deptno != null">
+                and deptno = #{deptno,jdbcType=INTEGER}
+            </if>
         </where>
-    </delete>
-
-    <update id="update">
-        UPDATE emp
-        <set>
-            <if test="ename != null">  ename = #{ename},</if>
-            <if test="deptno != null"> and deptno = #{deptno}</if>
-        </set>
-    </update>
-
-    <select id="find" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM emp
-        <where>
-            <if test="empno != null"> and empno = #{empno}</if>
-            <if test="ename != null"> and ename = #{ename}</if>
-            <if test="deptno != null"> and deptno = #{deptno}</if>
-        </where>
+        <if test = "sortInfo != null and sortInfo != ''">
+            order by ${sortInfo}
+        </if>
+        <if test = "sortInfo == null or sortInfo == ''">
+            order by empno desc
+        </if>
+    </select>
+    <select id="jobs" resultType="string">
+        SELECT job FROM emp group by job
+    </select>
+    <select id="deptnos" resultType="string">
+        SELECT deptno FROM emp group by deptno
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dao.adapter.EmpMapperEx;
 import com.example.demo.entity.Emp;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -12,12 +13,12 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface EmpMapper {
+public interface EmpMapper extends EmpMapperEx {
     Integer insert(Emp emp);
 
     Integer delete(Emp emp);
 
     Integer update(Emp emp);
 
-    List<Emp> select(Emp emp);
+    List<Emp> selectEmp(Emp emp);
 }
