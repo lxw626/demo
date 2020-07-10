@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringBoot模版渲染</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+<!-- th:text覆盖原div内容,th:id覆盖原id内容-->
+<div id="div1" th:id="${uid}" th:text="'用户名ID: '+  ${uid}">这里是用户ID</div>
+<div  id="div2" th:text="'用户名称：' + ${name}">这里是用户名称</div>
+<hr/>
+<div>
+    <h4 th:each="user:${users}">[[${user}]]</h4>
+</div>
+<a th:href="@{https://www.baidu.com}">我要去百度</a>
+</body>
+</html>
