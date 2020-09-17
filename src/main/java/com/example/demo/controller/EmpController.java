@@ -18,6 +18,7 @@ public class EmpController {
     private EmpService empService;
     @PostMapping("/addEmp")
     public Response addEmp(@RequestBody Emp emp) {
+        System.out.println("EmpController.emp"+emp);
         Integer result = empService.insert(emp);
         return new Response().success(result);
     }
